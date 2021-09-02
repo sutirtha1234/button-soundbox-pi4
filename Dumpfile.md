@@ -14,3 +14,13 @@ change volume
 $ ffmpeg -i input.wav -filter:a "volume=10dB" output.wav
 
 ```
+
+
+# Main steps
+1) Buy a basic Raspberry Pi system
+2) Buy necessary components:
+    - output sound
+    - button
+    - wires
+3) get some audio samples
+4) 
