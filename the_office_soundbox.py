@@ -11,10 +11,10 @@ mixer.music.set_volume(0.9)
 
 # UPDATE: The GPIO pin number where Red wire of Button is connected
 button = Button(16)
-# UPDATE: Use directory of 
+# UPDATE: Use directory of where your sounds are stored
 TOP_DIRECTORY = "/home/pi/Music/soundbox_sounds/"
 
-# generated with below command
+# generated with below command. Or hand write every sound file name.
 # bash$ i = 1
 # bash$ for file in *.wav; do echo "$i: '$file',"; ((i++)); done;
 SOUND_DICT = {
