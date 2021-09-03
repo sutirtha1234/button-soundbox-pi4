@@ -1,6 +1,12 @@
 # SoundBox to play random THE OFFICE quotes
 A guide to create a Sound Box on button press with a Raspberry Pi. I used Pi 4 B 4GB model but the setup is generic.
 
+Final outcome: https://www.youtube.com/watch?v=zevo9r89HpU
+<p align="center">
+  <img alt="soundbox" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/final_inside_case.jpg" width="25%">
+</p>
+
+
 ## Goal
 I wanted to create a portable box like thing. Person connects power and presses a button to hear a quote from [The Office](https://www.imdb.com/title/tt0386676/)
 
@@ -12,12 +18,13 @@ I wanted to create a portable box like thing. Person connects power and presses 
 - A button
     - i bought a pre soldered button for  ease of use, but choice is free
 - wires and breadboard for testing
+    - ducant wires for easy contact with boards
 - electric tape, solder setup or any other way you have to connect the wire to the GPIO box
 
 <p align="center">
-  <img alt="Light" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/mini_speaker_example.jpg" width="15%">
+  <img alt="speaker" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/mini_speaker_example.jpg" width="15%">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Dark" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/pre-soldered_button_example.jpg" width="25%">
+  <img alt="Button" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/pre-soldered_button_example.jpg" width="25%">
 </p>
 
 You will also need a monitor, mouse and keyboard to do the initial setup
@@ -25,8 +32,8 @@ You will also need a monitor, mouse and keyboard to do the initial setup
 ## MAIN FLOW
 1) Acquire sound samples
 2) Write code (Python)
-3) Test with breadboard
-4) Test directly
+3) Initial Setup of Pi and Test with breadboard
+4) Test directly removing breadboard
 5) Prepare as a service to run without a monitor
 
 ### Acquire sounds
@@ -77,9 +84,65 @@ button = Button(16)
 
 Please refer to your manual for pin and corresponding GPIO pin number
 
+### Setup the circuit
 
+First you should follow the box setup to run your Pi initially. connect the heat sinks, case and run on PC.
 
+Now we add a breadboard and button with wires. Main thing to remember is red to GPIO, black to GND. My setup has GPIO in pin 16.
 
+Left image stolen from here
+https://projects.raspberrypi.org/en/projects/button-switch-scratch-pi/1
 
+<p align="center">
+  <img alt="diag" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/button_basic.png" width="35%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="real_breadboard" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/initial_setup.jpg" width="35%">
+</p>
 
+Now turn on the device and to test if it works.
 
+1) Run your code
+```
+$ python3 the_office_soundboard.py
+...
+```
+2) press the button you attached
+
+## Test directly removing breadboard
+Next test it runs without the breadboard. Basically remove the breadboard and connect the wires directly. I have used a hack but you should use electrical tape or soldering.
+
+<p align="center">
+  <img alt="without_breadboard" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/after_removing_breadboard.jpg" width="35%">
+</p>
+
+## Run without Monitor
+You need to deploy the code as a service to have it booted automatically everytime you start the Pi.
+Please refer here:
+https://www.raspberrypi.org/documentation/computers/using_linux.html#the-systemd-daemon
+My sample file is here:
+https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/office_soundboard.service
+
+Start the service or restart your Pi .
+on restart you should not have to run the code using python3 anymore. Pressing the button should work.
+
+Now try after removing monitor, mouse keyboard
+
+#### Pi4 gotchas
+Pi 4 does not boot properly if there is no monitor attached.
+You need to boot in CLI mode and/or set a default Resolution.
+
+https://www.digikey.com/en/maker/blogs/2018/how-to-boot-to-command-line-and-ssh-on-raspberry-pi
+```
+$ sudo raspi-config
+# menu may change
+
+# 1 set boot CLi
+System > Boot > CLi with login
+
+# Set resolution
+Display > REsolution > choose any
+
+Now choose Finish
+``
+
+Remember to rever both these when you want to tinker around in GUI again.
