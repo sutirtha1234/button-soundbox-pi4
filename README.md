@@ -109,7 +109,9 @@ $ python3 the_office_soundboard.py
 2) press the button you attached
 
 ## Test directly removing breadboard
-Next test it runs without the breadboard. Basically remove the breadboard and connect the wires directly. I have used a hack but you should use electrical tape or soldering.
+Next test it runs without the breadboard. Basically remove the breadboard and connect the wires directly. 
+
+I have used a dirty hack but you should use electrical tape or soldering.
 
 <p align="center">
   <img alt="without_breadboard" src="https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/assets/after_removing_breadboard.jpg" width="35%">
@@ -117,18 +119,21 @@ Next test it runs without the breadboard. Basically remove the breadboard and co
 
 ## Run without Monitor
 You need to deploy the code as a service to have it booted automatically everytime you start the Pi.
+
 Please refer here:
 https://www.raspberrypi.org/documentation/computers/using_linux.html#the-systemd-daemon
+
 My sample file is here:
 https://github.com/sutirtha1234/button-soundbox-pi4/blob/main/office_soundboard.service
 
 Start the service or restart your Pi .
-on restart you should not have to run the code using python3 anymore. Pressing the button should work.
+On restart you should not have to run the code using python3 anymore. Pressing the button should work.
 
 Now try after removing monitor, mouse keyboard
 
 #### Pi4 gotchas
 Pi 4 does not boot properly if there is no monitor attached.
+
 You need to boot in CLI mode and/or set a default Resolution.
 
 https://www.digikey.com/en/maker/blogs/2018/how-to-boot-to-command-line-and-ssh-on-raspberry-pi
